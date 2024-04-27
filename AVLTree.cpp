@@ -8,14 +8,18 @@ AVLTree::AVLTree()
 int AVLTree::height(Node *node)
 {
     if (node == nullptr)
+    {
         return 0;
+    }
     return node->height;
 }
 
 int AVLTree::getBalanceFactor(Node *node)
 {
     if (node == nullptr)
+    {
         return 0;
+    }
     return height(node->left) - height(node->right);
 }
 
@@ -65,11 +69,17 @@ AVLTree::Node *AVLTree::insert(Node *node, int data)
     }
 
     if (data < node->data)
+    {
         node->left = insert(node->left, data);
+    }
     else if (data > node->data)
+    {
         node->right = insert(node->right, data);
+    }
     else
+    {
         return node; // Duplicate keys not allowed
+    }
 
     // Update height of this ancestor node
     node->height = 1 + std::max(height(node->left), height(node->right));
@@ -79,11 +89,15 @@ AVLTree::Node *AVLTree::insert(Node *node, int data)
 
     // Left Left Case
     if (balance > 1 && data < node->left->data)
+    {
         return rightRotate(node);
+    }
 
     // Right Right Case
     if (balance < -1 && data > node->right->data)
+    {
         return leftRotate(node);
+    }
 
     // Left Right Case
     if (balance > 1 && data > node->left->data)
@@ -106,19 +120,27 @@ AVLTree::Node *AVLTree::minValueNode(Node *node)
 {
     Node *current = node;
     while (current->left != nullptr)
+    {
         current = current->left;
+    }
     return current;
 }
 
 AVLTree::Node *AVLTree::deleteNode(Node *root, int key)
 {
     if (root == nullptr)
+    {
         return root;
+    }
 
     if (key < root->data)
+    {
         root->left = deleteNode(root->left, key);
+    }
     else if (key > root->data)
+    {
         root->right = deleteNode(root->right, key);
+    }
     else
     {
         if (root->left == nullptr || root->right == nullptr)
@@ -144,14 +166,18 @@ AVLTree::Node *AVLTree::deleteNode(Node *root, int key)
     }
 
     if (root == nullptr)
+    {
         return root;
+    }
 
     root->height = 1 + std::max(height(root->left), height(root->right));
 
     int balance = getBalanceFactor(root);
 
     if (balance > 1 && getBalanceFactor(root->left) >= 0)
+    {
         return rightRotate(root);
+    }
 
     if (balance > 1 && getBalanceFactor(root->left) < 0)
     {
@@ -160,7 +186,9 @@ AVLTree::Node *AVLTree::deleteNode(Node *root, int key)
     }
 
     if (balance < -1 && getBalanceFactor(root->right) <= 0)
+    {
         return leftRotate(root);
+    }
 
     if (balance < -1 && getBalanceFactor(root->right) > 0)
     {
@@ -212,7 +240,9 @@ void AVLTree::levelOrderTraversal(Node *root)
     // return;
 
     if (root == nullptr)
+    {
         return;
+    }
 
     std::queue<Node *> q;
     q.push(root);
@@ -225,10 +255,13 @@ void AVLTree::levelOrderTraversal(Node *root)
         q.pop();
 
         if (temp->left != nullptr)
+        {
             q.push(temp->left);
-
+        }
         if (temp->right != nullptr)
+        {
             q.push(temp->right);
+        }
     }
     return;
 }
@@ -236,32 +269,44 @@ void AVLTree::levelOrderTraversal(Node *root)
 int AVLTree::treeHeight(Node *root)
 {
     if (root == nullptr)
+    {
         return 0;
+    }
     return root->height;
 }
 
 AVLTree::Node *AVLTree::findMin(Node *root)
 {
     if (root == nullptr)
+    {
         return nullptr;
+    }
     while (root->left != nullptr)
+    {
         root = root->left;
+    }
     return root;
 }
 
 AVLTree::Node *AVLTree::findMax(Node *root)
 {
     if (root == nullptr)
+    {
         return nullptr;
+    }
     while (root->right != nullptr)
+    {
         root = root->right;
+    }
     return root;
 }
 
 void AVLTree::clear(Node *root)
 {
     if (root == nullptr)
+    {
         return;
+    }
     clear(root->left);
     clear(root->right);
     delete root;
@@ -270,14 +315,18 @@ void AVLTree::clear(Node *root)
 int AVLTree::countNodes(Node *root)
 {
     if (root == nullptr)
+    {
         return 0;
+    }
     return 1 + countNodes(root->left) + countNodes(root->right);
 }
 
 bool AVLTree::isBalanced(Node *root)
 {
     if (root == nullptr)
+    {
         return true;
+    }
     int balance = getBalanceFactor(root);
     return (balance >= -1 && balance <= 1) && isBalanced(root->left) && isBalanced(root->right);
 }
@@ -285,7 +334,9 @@ bool AVLTree::isBalanced(Node *root)
 AVLTree::Node *AVLTree::findSuccessor(Node *root, int key)
 {
     if (root == nullptr)
+    {
         return nullptr;
+    }
     Node *successor = nullptr;
     while (root != nullptr)
     {
@@ -295,7 +346,9 @@ AVLTree::Node *AVLTree::findSuccessor(Node *root, int key)
             root = root->left;
         }
         else
+        {
             root = root->right;
+        }
     }
     return successor;
 }
@@ -303,7 +356,9 @@ AVLTree::Node *AVLTree::findSuccessor(Node *root, int key)
 AVLTree::Node *AVLTree::findPredecessor(Node *root, int key)
 {
     if (root == nullptr)
+    {
         return nullptr;
+    }
     Node *predecessor = nullptr;
     while (root != nullptr)
     {
@@ -313,7 +368,9 @@ AVLTree::Node *AVLTree::findPredecessor(Node *root, int key)
             root = root->right;
         }
         else
+        {
             root = root->left;
+        }
     }
     return predecessor;
 }
@@ -321,26 +378,36 @@ AVLTree::Node *AVLTree::findPredecessor(Node *root, int key)
 void AVLTree::rangeSearch(Node *root, int k1, int k2)
 {
     if (root == nullptr)
+    {
         return;
+    }
     if (root->data > k1)
+    {
         rangeSearch(root->left, k1, k2);
+    }
     if (root->data >= k1 && root->data <= k2)
     {
         result->push_back(root->data);
         // std::cout << root->data << " ";
     }
     if (root->data < k2)
+    {
         rangeSearch(root->right, k1, k2);
+    }
 }
 
 AVLTree::Node *AVLTree::updateKey(Node *root, int oldKey, int newKey)
 {
     if (root == nullptr)
+    {
         return nullptr;
+    }
     root->left = updateKey(root->left, oldKey, newKey);
     root->right = updateKey(root->right, oldKey, newKey);
     if (root->data == oldKey)
+    {
         root->data = newKey;
+    }
     return root;
 }
 
@@ -361,7 +428,9 @@ AVLTree::Node *AVLTree::deserialize(std::istream &in)
     std::string val;
     in >> val;
     if (val == "null")
+    {
         return nullptr;
+    }
     Node *root = new Node();
     root->data = std::stoi(val);
     root->left = deserialize(in);
@@ -372,7 +441,9 @@ AVLTree::Node *AVLTree::deserialize(std::istream &in)
 bool AVLTree::breadthFirstSearch(Node *root, int key)
 {
     if (root == nullptr)
+    {
         return false;
+    }
 
     std::queue<Node *> q;
     q.push(root);
@@ -383,13 +454,19 @@ bool AVLTree::breadthFirstSearch(Node *root, int key)
         q.pop();
 
         if (current->data == key)
+        {
             return true;
+        }
 
         if (current->left != nullptr)
+        {
             q.push(current->left);
+        }
 
         if (current->right != nullptr)
+        {
             q.push(current->right);
+        }
     }
 
     return false;
@@ -398,11 +475,14 @@ bool AVLTree::breadthFirstSearch(Node *root, int key)
 bool AVLTree::depthFirstSearch(Node *root, int key)
 {
     if (root == nullptr)
+    {
         return false;
+    }
 
     if (root->data == key)
+    {
         return true;
-
+    }
     bool leftSearch = depthFirstSearch(root->left, key);
     bool rightSearch = depthFirstSearch(root->right, key);
 
