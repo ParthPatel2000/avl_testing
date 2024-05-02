@@ -72,8 +72,6 @@ TEST(AVLTree, Deletion)
 
     avlTree.result->clear();
 
-
-    // delete &avlTree;
 }
 
 TEST(AVLTree, HeightAndMinMax)
@@ -105,8 +103,6 @@ TEST(AVLTree, HeightAndMinMax)
         << "Maximum value is incorrect";
     avlTree.result->clear();
 
-
-    // delete &avlTree;
 }
 
 TEST(AVLTree, RangeSearch)
@@ -151,7 +147,6 @@ TEST(AVLTree, RangeSearch)
 
     avlTree.result->clear();
 
-    // delete &avlTree;
 }
 
 TEST(AVLTree, SuccessorAndPredecessor)
@@ -189,6 +184,5 @@ TEST(AVLTree, SuccessorAndPredecessor)
     LOG(TRACE) << "Successor of " << key << ": " << successor;
     LOG(TRACE) << "Predecessor of " << key << ": " << predecessor;
 
-delete avlTree.result;
-delete &avlTree;
+
 }

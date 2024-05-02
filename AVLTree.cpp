@@ -206,7 +206,7 @@ void AVLTree::inorderTraversal(Node *root)
     {
         inorderTraversal(root->left);
         result->push_back(root->data);
-        // std::cout << root->data << " ";
+
         inorderTraversal(root->right);
     }
 }
@@ -217,7 +217,7 @@ void AVLTree::preorderTraversal(Node *root)
     if (root != nullptr)
     {
         result->push_back(root->data);
-        // std::cout << root->data << " ";
+
         preorderTraversal(root->left);
         preorderTraversal(root->right);
     }
@@ -231,7 +231,6 @@ void AVLTree::postorderTraversal(Node *root)
         postorderTraversal(root->left);
         postorderTraversal(root->right);
         result->push_back(root->data);
-        // std::cout << root->data << " ";
     }
 }
 
@@ -251,7 +250,7 @@ void AVLTree::levelOrderTraversal(Node *root)
     {
         Node *temp = q.front();
         result->push_back(temp->data);
-        // std::cout << temp->data << " ";
+
         q.pop();
 
         if (temp->left != nullptr)
@@ -388,7 +387,7 @@ void AVLTree::rangeSearch(Node *root, int k1, int k2)
     if (root->data >= k1 && root->data <= k2)
     {
         result->push_back(root->data);
-        // std::cout << root->data << " ";
+
     }
     if (root->data < k2)
     {
@@ -522,25 +521,25 @@ void AVLTree::remove(int data)
 void AVLTree::inorderTraversal()
 {
     return inorderTraversal(root);
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void AVLTree::preorderTraversal()
 {
     return preorderTraversal(root);
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void AVLTree::postorderTraversal()
 {
     return postorderTraversal(root);
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void AVLTree::levelOrderTraversal()
 {
     return levelOrderTraversal(root);
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 int AVLTree::height()
@@ -592,7 +591,7 @@ int AVLTree::predecessor(int key)
 void AVLTree::rangeSearch(int k1, int k2)
 {
     rangeSearch(root, k1, k2);
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void AVLTree::updateKey(int oldKey, int newKey)
