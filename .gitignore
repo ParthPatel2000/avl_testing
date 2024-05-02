@@ -24,3 +24,6 @@ bin/
 
 # Dependency directories
 vendor/
+
+# Local development directories
+coverage/
