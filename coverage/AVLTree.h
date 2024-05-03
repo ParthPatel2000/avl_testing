@@ -19,7 +19,7 @@ public: // For testing purposes
     };
     std::size_t size = 0;
 
-    Node *root = NULL;
+    Node *root = nullptr;
 
     int height(Node *node);
     int getBalanceFactor(Node *node);
@@ -44,6 +44,8 @@ public: // For testing purposes
     Node *findPredecessor(Node *root, int key);
     void rangeSearch(Node *root, int k1, int k2);
     Node *updateKey(Node *root, int oldKey, int newKey);
+    void serialize(Node *root, std::ostream &out);
+    Node *deserialize(std::istream &in);
 
 public:
     std::vector<int> *result = new std::vector<int>();
@@ -69,6 +71,8 @@ public:
     int predecessor(int key);
     void rangeSearch(int k1, int k2);
     void updateKey(int oldKey, int newKey);
+    void serialize(std::ostream &out);
+    void deserialize_in(std::istream &in);
 };
 
 #endif // AVLTREE_H

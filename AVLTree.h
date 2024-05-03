@@ -19,7 +19,7 @@ public: // For testing purposes
     };
     std::size_t size = 0;
 
-    Node *root = NULL;
+    Node *root = nullptr;
 
     int height(Node *node);
     int getBalanceFactor(Node *node);

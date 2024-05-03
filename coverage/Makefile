@@ -4,6 +4,8 @@ LDFLAGS = -ldeepstate -lgcov
 
 targets = test
 
+.PHONY: test fuzz
+
 test: harness.cpp AVLTree.cpp
 	$(cxx) $(CXXFLAGS) harness.cpp AVLTree.cpp -o test  $(LDFLAGS)
 
@@ -11,7 +13,7 @@ coverage:
 	make clean
 	make test
 	rm -rf coverage_report
-	./test --fuzz --timeout 1
+	make fuzz
 	gcov AVLTree.cpp
 	lcov --capture --directory . --output-file coverage.info
 	genhtml coverage.info --output-directory coverage_report
@@ -20,7 +22,7 @@ main: main.cpp AVLTree.cpp
 	$(cxx) $(CXXFLAGS) main.cpp AVLTree.cpp -o main
 
 fuzz:
-	./test --fuzz --timeout 1
+	./test --fuzz --timeout 10
 
 clean:
 	rm -f test main *.gcda *.gcno 

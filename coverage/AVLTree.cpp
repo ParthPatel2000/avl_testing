@@ -387,7 +387,6 @@ void AVLTree::rangeSearch(Node *root, int k1, int k2)
     if (root->data >= k1 && root->data <= k2)
     {
         result->push_back(root->data);
-
     }
     if (root->data < k2)
     {
@@ -410,32 +409,32 @@ AVLTree::Node *AVLTree::updateKey(Node *root, int oldKey, int newKey)
     return root;
 }
 
-// void AVLTree::serialize(Node *root, std::ostream &out)
-// {
-//     if (root == nullptr)
-//     {
-//         out << "null ";
-//         return;
-//     }
-//     out << root->data << " ";
-//     serialize(root->left, out);
-//     serialize(root->right, out);
-// }
+void AVLTree::serialize(Node *root, std::ostream &out)
+{
+    if (root == nullptr)
+    {
+        out << "null ";
+        return;
+    }
+    out << root->data << " ";
+    serialize(root->left, out);
+    serialize(root->right, out);
+}
 
-// AVLTree::Node *AVLTree::deserialize(std::istream &in)
-// {
-//     std::string val;
-//     in >> val;
-//     if (val == "null")
-//     {
-//         return nullptr;
-//     }
-//     Node *root = new Node();
-//     root->data = std::stoi(val);
-//     root->left = deserialize(in);
-//     root->right = deserialize(in);
-//     return root;
-// }
+AVLTree::Node *AVLTree::deserialize(std::istream &in)
+{
+    std::string val;
+    in >> val;
+    if (val == "null")
+    {
+        return nullptr;
+    }
+    Node *root = new Node();
+    root->data = std::stoi(val);
+    root->left = deserialize(in);
+    root->right = deserialize(in);
+    return root;
+}
 
 bool AVLTree::breadthFirstSearch(Node *root, int key)
 {
@@ -505,7 +504,11 @@ bool AVLTree::depthFirstSearch(int key)
 
 bool AVLTree::breadthFirstSearch(int key)
 {
-    return breadthFirstSearch(root, key);
+    if (root)
+    {
+        return breadthFirstSearch(root, key);
+    }
+    return 0;
 }
 
 void AVLTree::insert(int data)
@@ -515,31 +518,32 @@ void AVLTree::insert(int data)
 
 void AVLTree::remove(int data)
 {
-    root = deleteNode(root, data);
+    if (root)
+    {
+        root = deleteNode(root, data);
+        return;
+    }
+    return;
 }
 
 void AVLTree::inorderTraversal()
 {
     return inorderTraversal(root);
-    // std::cout << std::endl;
 }
 
 void AVLTree::preorderTraversal()
 {
     return preorderTraversal(root);
-    // std::cout << std::endl;
 }
 
 void AVLTree::postorderTraversal()
 {
     return postorderTraversal(root);
-    // std::cout << std::endl;
 }
 
 void AVLTree::levelOrderTraversal()
 {
     return levelOrderTraversal(root);
-    // std::cout << std::endl;
 }
 
 int AVLTree::height()
@@ -562,7 +566,6 @@ int AVLTree::maximum()
 void AVLTree::clear()
 {
     clear(root);
-    // std::cout<<"Cleared"<<std::endl;
     root = nullptr;
 }
 
@@ -591,14 +594,27 @@ int AVLTree::predecessor(int key)
 void AVLTree::rangeSearch(int k1, int k2)
 {
     rangeSearch(root, k1, k2);
-    // std::cout << std::endl;
 }
 
 void AVLTree::updateKey(int oldKey, int newKey)
 {
-    root = updateKey(root, oldKey, newKey);
+    if (root)
+    {
+        root = updateKey(root, oldKey, newKey);
+        return;
+    }
+    return;
 }
 
+void AVLTree::serialize(std::ostream &out)
+{
+    serialize(root, out);
+}
+
+void AVLTree::deserialize_in(std::istream &in)
+{
+    root = deserialize(in);
+}
 
 // destructors
 AVLTree::~AVLTree()
