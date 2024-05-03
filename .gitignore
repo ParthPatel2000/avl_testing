@@ -26,4 +26,13 @@ bin/
 vendor/
 
 # Local development directories
-coverage/
+*.gcno
+*.gcda
+*.info
+AVLTree.cpp.um.backup.*
+test
+.*
+killed.txt
+notkilled.txt
+coverage/coverage_report/
+mutants/mutants

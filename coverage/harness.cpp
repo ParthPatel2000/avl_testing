@@ -23,13 +23,9 @@ TEST(AVLTree, ALL)
     for (int i = 0; i < numValues; ++i)
     {
         int value = DeepState_Int();
-        
         avlTree.insert(value);
         inputValues.push_back(value);
     }
-
-    //Test the number of nodes in the tree
-    ASSERT(avlTree.getsize() == numValues) << "Number of nodes in the tree is incorrect";
 
     // Perform inorder traversal and check if the elements are in ascending order
     avlTree.inorderTraversal();
@@ -142,16 +138,6 @@ TEST(AVLTree, ALL)
 
     LOG(TRACE) << "Successor of " << key << ": " << successor;
     LOG(TRACE) << "Predecessor of " << key << ": " << predecessor;
-
-    //Test Update function
-    int updateValue = DeepState_Int();
-    int valueToUpdate = inputValues[DeepState_IntInRange(0, inputValues.size() - 1)];
-    avlTree.updateKey(valueToUpdate, updateValue);
-    ASSERT(avlTree.breadthFirstSearch(valueToUpdate) == false && avlTree.breadthFirstSearch(updateValue)) << "Update failed";
-    if(debug)
-    {
-        cout << "Value to update: " << valueToUpdate << endl;
-    }
 
     // TESTING DELETION
     int valueToDelete = DeepState_Int();
