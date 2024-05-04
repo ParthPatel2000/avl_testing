@@ -27,4 +27,4 @@ fuzz:
 	./test --fuzz --timeout 10
 
 clean:
-	rm -f test main *.gcda *.gcno 
+	rm -f test main *.gcda *.gcno *.info

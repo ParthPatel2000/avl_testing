@@ -116,15 +116,7 @@ AVLTree::Node *AVLTree::insert(Node *node, int data)
     return node;
 }
 
-AVLTree::Node *AVLTree::minValueNode(Node *node)
-{
-    Node *current = node;
-    while (current->left != nullptr)
-    {
-        current = current->left;
-    }
-    return current;
-}
+
 
 AVLTree::Node *AVLTree::deleteNode(Node *root, int key)
 {
@@ -141,29 +133,7 @@ AVLTree::Node *AVLTree::deleteNode(Node *root, int key)
     {
         root->right = deleteNode(root->right, key);
     }
-    else
-    {
-        if (root->left == nullptr || root->right == nullptr)
-        {
-            Node *temp = root->left ? root->left : root->right;
-            if (temp == nullptr)
-            {
-                temp = root;
-                root = nullptr;
-            }
-            else
-            {
-                *root = *temp;
-            }
-            delete temp;
-        }
-        else
-        {
-            Node *temp = minValueNode(root->right);
-            root->data = temp->data;
-            root->right = deleteNode(root->right, temp->data);
-        }
-    }
+    
 
     if (root == nullptr)
     {
@@ -265,14 +235,6 @@ void AVLTree::levelOrderTraversal(Node *root)
     return;
 }
 
-int AVLTree::treeHeight(Node *root)
-{
-    if (root == nullptr)
-    {
-        return 0;
-    }
-    return root->height;
-}
 
 AVLTree::Node *AVLTree::findMin(Node *root)
 {
@@ -409,32 +371,6 @@ AVLTree::Node *AVLTree::updateKey(Node *root, int oldKey, int newKey)
     return root;
 }
 
-void AVLTree::serialize(Node *root, std::ostream &out)
-{
-    if (root == nullptr)
-    {
-        out << "null ";
-        return;
-    }
-    out << root->data << " ";
-    serialize(root->left, out);
-    serialize(root->right, out);
-}
-
-AVLTree::Node *AVLTree::deserialize(std::istream &in)
-{
-    std::string val;
-    in >> val;
-    if (val == "null")
-    {
-        return nullptr;
-    }
-    Node *root = new Node();
-    root->data = std::stoi(val);
-    root->left = deserialize(in);
-    root->right = deserialize(in);
-    return root;
-}
 
 bool AVLTree::breadthFirstSearch(Node *root, int key)
 {
@@ -606,15 +542,6 @@ void AVLTree::updateKey(int oldKey, int newKey)
     return;
 }
 
-void AVLTree::serialize(std::ostream &out)
-{
-    serialize(root, out);
-}
-
-void AVLTree::deserialize_in(std::istream &in)
-{
-    root = deserialize(in);
-}
 
 // destructors
 AVLTree::~AVLTree()
