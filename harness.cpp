@@ -10,7 +10,7 @@ using std::endl;
 
 #define debug 1
 
-#define mininum_int 0
+#define mininum_int 1
 #define maximum_int 10
 
 #define int_gen DeepState_Int
@@ -171,9 +171,9 @@ TEST(AVLTree, ALL)
     int updateValue = int_gen();
     int valueToUpdate = inputValues[DeepState_IntInRange(0, inputValues.size() - 1)];
 
-    avlTree.updateKey(valueToUpdate, updateValue);
     if (numValues)
     {
+        avlTree.updateKey(valueToUpdate, updateValue);
         ASSERT(avlTree.breadthFirstSearch(valueToUpdate) == false && avlTree.breadthFirstSearch(updateValue)) << "Update failed";
     }
 

@@ -26,7 +26,6 @@ public: // For testing purposes
     Node *rightRotate(Node *y);
     Node *leftRotate(Node *x);
     Node *insert(Node *node, int data);
-    Node *minValueNode(Node *node);
     Node *deleteNode(Node *root, int key);
     void inorderTraversal(Node *root);
     void preorderTraversal(Node *root);
@@ -34,7 +33,6 @@ public: // For testing purposes
     void levelOrderTraversal(Node *root);
     bool depthFirstSearch(Node *root, int key);
     bool breadthFirstSearch(Node *root, int key);
-    int treeHeight(Node *root);
     Node *findMin(Node *root);
     Node *findMax(Node *root);
     void clear(Node *root);
@@ -44,8 +42,6 @@ public: // For testing purposes
     Node *findPredecessor(Node *root, int key);
     void rangeSearch(Node *root, int k1, int k2);
     Node *updateKey(Node *root, int oldKey, int newKey);
-    void serialize(Node *root, std::ostream &out);
-    Node *deserialize(std::istream &in);
 
 public:
     std::vector<int> *result = new std::vector<int>();
@@ -71,8 +67,6 @@ public:
     int predecessor(int key);
     void rangeSearch(int k1, int k2);
     void updateKey(int oldKey, int newKey);
-    void serialize(std::ostream &out);
-    void deserialize_in(std::istream &in);
 };
 
 #endif // AVLTREE_H

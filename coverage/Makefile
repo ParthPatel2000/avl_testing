@@ -1,5 +1,5 @@
 cxx = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -O3 -fprofile-arcs -ftest-coverage
+CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -O1 -fprofile-arcs -ftest-coverage
 LDFLAGS = -ldeepstate -lgcov
 
 targets = test
@@ -15,8 +15,10 @@ coverage:
 	rm -rf coverage_report
 	make fuzz
 	gcov AVLTree.cpp
-	lcov --capture --directory . --output-file coverage.info
-	genhtml coverage.info --output-directory coverage_report
+	lcov --capture --directory . --output-file coverage.info 
+	lcov --remove coverage.info '/usr/include/*' '/usr/local/include/*'  -o filtered_coverage.info
+	genhtml filtered_coverage.info --output-directory coverage_report
+	
 
 main: main.cpp AVLTree.cpp
 	$(cxx) $(CXXFLAGS) main.cpp AVLTree.cpp -o main

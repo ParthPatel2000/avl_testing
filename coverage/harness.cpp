@@ -1,6 +1,6 @@
 #include <deepstate/DeepState.hpp>
 #include <vector>
-#include <algorithm> // for std::min_element, std::max_element
+#include <algorithm> 
 #include "AVLTree.h"
 
 using namespace deepstate;
@@ -8,9 +8,9 @@ using namespace deepstate;
 using std::cout;
 using std::endl;
 
-#define debug 1
+#define debug 0
 
-#define mininum_int 0
+#define mininum_int 1
 #define maximum_int 10
 
 #define int_gen DeepState_Int
@@ -38,6 +38,9 @@ TEST(AVLTree, ALL)
 
     // Test the number of nodes in the tree
     ASSERT(avlTree.getsize() == numValues) << "Number of nodes in the tree is incorrect";
+
+    // count the nodesof the tree
+    ASSERT(avlTree.count() == numValues) << "Number of Nodes in the tree is wrong";
 
     // Only check Traversals if the tree has something in it
     if (numValues)
@@ -87,6 +90,7 @@ TEST(AVLTree, ALL)
         ASSERT(minValue == *std::min_element(inorderResult.begin(), inorderResult.end()))
             << "Minimum value is incorrect";
     }
+
     // Calculate maximum value and assert that it's correct
     int maxValue = avlTree.maximum();
     if (maxValue != -1)
@@ -167,6 +171,10 @@ TEST(AVLTree, ALL)
     LOG(TRACE) << "Successor of " << key << ": " << successor;
     LOG(TRACE) << "Predecessor of " << key << ": " << predecessor;
 
+    //Testing DFS
+    int valueToFind = inputValues[DeepState_IntInRange(0, inputValues.size() - 1)];
+    ASSERT(avlTree.depthFirstSearch(valueToFind)) << "Breadth First Search failed";
+
     // Test Update function
     int updateValue = int_gen();
     int valueToUpdate = inputValues[DeepState_IntInRange(0, inputValues.size() - 1)];
@@ -183,16 +191,25 @@ TEST(AVLTree, ALL)
     }
 
     // TESTING DELETION
-    int valueToDelete = int_gen();
-    avlTree.remove(valueToDelete);
     if (numValues)
     {
+        std::vector<int> values_to_delete;
+        for (int i = 0; i < DeepState_IntInRange(1, numValues - 1); i++)
+        {
+            int valueToDelete = int_gen();
+            values_to_delete.push_back(valueToDelete);
+            avlTree.remove(valueToDelete);
+        }
+
         avlTree.inorderTraversal();
         inorderResult = *avlTree.result;
         for (int i = 0; i < inorderResult.size(); i++)
         {
-            ASSERT(inorderResult[i] != valueToDelete) << "Deletion failed";
+            ASSERT(std::find(values_to_delete.begin(), values_to_delete.end(), inorderResult[i]) == values_to_delete.end() ) << "Deletion failed";
         }
         avlTree.result->clear();
     }
+
+    //check balance 
+    ASSERT(avlTree.isBalanced()) << "Not Balanced";
 }
