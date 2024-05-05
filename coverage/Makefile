@@ -2,17 +2,17 @@ cxx = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -O1 -fprofile-arcs -ftest-coverage
 LDFLAGS = -ldeepstate -lgcov
 
-targets = test
+targets = coverage
 
-.PHONY: test fuzz
+.PHONY: test fuzz coverage
 
 test: harness.cpp AVLTree.cpp
 	$(cxx) $(CXXFLAGS) harness.cpp AVLTree.cpp -o test  $(LDFLAGS)
 
 coverage:
 	make clean
-	make test
 	rm -rf coverage_report
+	make test
 	make fuzz
 	gcov AVLTree.cpp
 	lcov --capture --directory . --output-file coverage.info 
